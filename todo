@@ -1,0 +1,6 @@
+-bdd.sql [ok]
+  .creation database emprunt(Harena)
+  .table livre(Harena)
+  .creation table categorie_objet(Harena)
+  .creation table image_objet (Harena)
+  .

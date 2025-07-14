@@ -1,0 +1,94 @@
+    USE emprunt;
+CREATE TABLE IF NOT EXISTS membre (
+    id_membre INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(50) NOT NULL,
+    date_naissance DATE NOT NULL,
+    genre VARCHAR(10),
+    email VARCHAR(100) NOT NULL UNIQUE,
+    ville VARCHAR(50) NOT NULL,
+    mdp VARCHAR(255) NOT NULL,
+    image_profil VARCHAR(255) DEFAULT 'default.jpg'
+);
+CREATE TABLE IF NOT EXISTS categorie_objet (
+    id_categorie INT AUTO_INCREMENT PRIMARY KEY,
+    nom_categorie VARCHAR(50) NOT NULL
+);
+CREATE TABLE IF NOT EXISTS objet (
+    id_objet INT AUTO_INCREMENT PRIMARY KEY,
+    nom_objet VARCHAR(100) NOT NULL,
+    id_categorie INT,
+    id_membre INT,
+    FOREIGN KEY (id_categorie) REFERENCES categorie_objet(id_categorie),
+    FOREIGN KEY (id_membre) REFERENCES membre(id_membre)
+);
+CREATE TABLE IF NOT EXISTS image_objet (
+    id_image INT AUTO_INCREMENT PRIMARY KEY,
+    id_objet INT NOT NULL,
+    nom_image VARCHAR(255) NOT NULL,
+    FOREIGN KEY (id_objet) REFERENCES objet(id_objet)
+);
+CREATE TABLE IF NOT EXISTS emprunt (
+    id_emprunt INT AUTO_INCREMENT PRIMARY KEY,
+    id_objet INT NOT NULL,
+    id_membre INT NOT NULL,
+    date_emprunt DATE NOT NULL,
+    date_retour DATE,
+    FOREIGN KEY (id_objet) REFERENCES objet(id_objet),
+    FOREIGN KEY (id_membre) REFERENCES membre(id_membre)
+);
+
+    INSERT INTO categorie_objet (nom_categorie) VALUES
+                                                    ('esthétique'),
+                                                    ('bricolage'),
+                                                    ('mécanique'),
+                                                    ('cuisine');
+
+
+    INSERT INTO objet (nom_objet, id_categorie, id_membre) VALUES
+                                                               ('Fer à lisser professionnel', 1, 1),
+                                                               ('Sèche-cheveux ionique', 1, 1),
+                                                               ('Kit manucure complet', 1, 1),
+                                                               ('Perceuse visseuse', 2, 1),
+                                                               ('Niveau à bulle 80cm', 2, 1),
+                                                               ('Scie sauteuse', 2, 1),
+                                                               ('Clés à molette jeu de 3', 3, 1),
+                                                               ('Cric hydraulique 2T', 3, 1),
+                                                               ('Robot pâtissier', 4, 1),
+                                                               ('Autocuiseur 6L', 4, 1);
+
+    INSERT INTO objet (nom_objet, id_categorie, id_membre) VALUES
+                                                               ('Tondeuse à barbe', 1, 2),
+                                                               ('Rasoir électrique', 1, 2),
+                                                               ('Marteau de charpentier', 2, 2),
+                                                               ('Tournevis électrique', 2, 2),
+                                                               ('Ponceuse orbitale', 2, 2),
+                                                               ('Mètre laser', 2, 2),
+                                                               ('Compresseur portable', 3, 2),
+                                                               ('Clés plates jeu complet', 3, 2),
+                                                               ('Barbecue électrique', 4, 2),
+                                                               ('Plancha gaz', 4, 2);
+
+    INSERT INTO objet (nom_objet, id_categorie, id_membre) VALUES
+                                                               ('Epilateur électrique', 1, 3),
+                                                               ('Brosse soufflante', 1, 3),
+                                                               ('Miroir grossissant LED', 1, 3),
+                                                               ('Défonceuse', 2, 3),
+                                                               ('Etabli pliant', 2, 3),
+                                                               ('Chandelles de sécurité', 3, 3),
+                                                               ('Manomètre pneus', 3, 3),
+                                                               ('Machine à pain', 4, 3),
+                                                               ('Centrifugeuse', 4, 3),
+                                                               ('Four à pizza portable', 4, 3);
+
+    INSERT INTO emprunt (id_objet, id_membre, date_emprunt, date_retour) VALUES
+                                                                             (1, 2, '2025-07-10', NULL),
+                                                                             (11, 1, '2025-07-12', NULL),
+                                                                             (21, 2, '2025-07-13', NULL),
+                                                                             (5, 3, '2025-07-14', NULL),
+                                                                             (15, 3, '2025-07-05', '2025-07-08'),
+                                                                             (3, 2, '2025-07-01', '2025-07-03'),
+                                                                             (27, 1, '2025-06-28', '2025-07-02'),
+                                                                             (18, 3, '2025-06-25', '2025-06-30'),
+                                                                             (9, 2, '2025-06-20', '2025-06-25'),
+                                                                             (25, 1, '2025-06-15', '2025-06-22');
+
