@@ -1,4 +1,3 @@
-    USE emprunt;
 CREATE TABLE IF NOT EXISTS membre (
     id_membre INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(50) NOT NULL,
@@ -119,3 +118,8 @@ LEFT JOIN categorie_objet c ON o.id_categorie = c.id_categorie
 LEFT JOIN membre proprietaire ON o.id_membre = proprietaire.id_membre
 LEFT JOIN emprunt e ON o.id_objet = e.id_objet AND e.date_retour IS NULL
 LEFT JOIN membre emprunteur ON e.id_membre = emprunteur.id_membre;
+
+INSERT INTO membre (nom, date_naissance, genre, email, ville, mdp, image_profil) VALUES
+    ('Alice Martin', '1990-05-15', 'Femme', 'alice.martin@email.com', 'Paris', '1', 'alice.jpg'),
+    ('Bob Dupont', '1985-08-22', 'Homme', 'bob.dupont@email.com', 'Lyon', '1', 'bob.jpg'),
+    ('Claire Dubois', '1992-12-03', 'Femme', 'claire.dubois@email.com', 'Marseille', '1', 'claire.jpg');
