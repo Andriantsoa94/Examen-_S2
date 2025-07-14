@@ -36,7 +36,7 @@ $categories = get_categories();
                     <?php while ($cat = mysqli_fetch_assoc($categories)) { ?>
                         <option value="<?php echo $cat['id']; ?>" 
                                 <?php echo ($categorie_filter == $cat['id']) ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($cat['nom']); ?>
+                            <?php echo $cat['nom']; ?>
                         </option>
                     <?php } ?>
                 </select>
@@ -50,19 +50,19 @@ $categories = get_categories();
                 <thead>
                     <tr>
                         <th>Nom</th>
-                        <th>Catégorie</th>
-                        <th>Propriétaire</th>
+                        <th>Categorie</th>
+                        <th>Proprietaire</th>
                         <th>Statut</th>
-                        <th>Emprunté par</th>
-                        <th>Date de retour prévue</th>
+                        <th>Emprunte par</th>
+                        <th>Date de retour prevue</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($objet = mysqli_fetch_assoc($objets)) { ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($objet['nom_objet']); ?></td>
-                            <td><?php echo htmlspecialchars($objet['nom_categorie']); ?></td>
-                            <td><?php echo htmlspecialchars($objet['proprietaire_nom']); ?></td>
+                            <td><?php echo $objet['nom_objet']; ?></td>
+                            <td><?php echo $objet['nom_categorie']; ?></td>
+                            <td><?php echo $objet['proprietaire_nom']; ?></td>
                             <td>
                                 <?php if ($objet['statut_emprunt'] == 'Emprunte') { ?>
                                     <span class="badge bg-warning">Emprunte</span>
@@ -71,19 +71,17 @@ $categories = get_categories();
                                 <?php } ?>
                             </td>
                             <td>
-                                <?php echo $objet['emprunteur_nom'] ? htmlspecialchars($objet['emprunteur_nom']) : '-'; ?>
+                                <?php echo $objet['emprunteur_nom'] ? $objet['emprunteur_nom'] : '-'; ?>
                             </td>
                             <td>
-                                <?php 
+                                <?php
                                 if ($objet['date_retour_prevue']) {
-                                    $date_retour_prevue = new DateTime($objet['date_retour_prevue']);
-                                    $aujourd_hui = new DateTime();
-                                    $class = ($date_retour_prevue < $aujourd_hui) ? 'text-danger fw-bold' : 'text-primary';
-                                    echo '<span class="'.$class.'">' . $date_retour_prevue->format('d/m/Y') . '</span>';
-                                    
-                                    if ($date_retour_prevue < $aujourd_hui) {
-                                        echo ' <small class="text-danger">(En retard)</small>';
-                                    }
+                                    $date = new DateTime($objet['date_retour_prevue']);
+                                    $today = new DateTime();
+                                    $late = $date < $today;
+                                    $class = $late ? 'text-danger fw-bold' : 'text-primary';
+                                    echo '<span class="' . $class . '">' . $date->format('d/m/Y') . '</span>';
+                                    if ($late) echo ' <small class="text-danger">(En retard)</small>';
                                 } else {
                                     echo '-';
                                 }
