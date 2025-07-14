@@ -3,4 +3,24 @@
   .table livre(Harena)
   .creation table categorie_objet(Harena)
   .creation table image_objet (Harena)
-  .
+  .insertion donnee emprunt(Harena)
+-index.php
+  .include bootstrap(Harena)
+  .input(Harena)
+     password
+     nom 
+     mail
+     date de naissance 
+     genre
+  .inserer donnees sur BDD membre (Tso)
+  .boutton have an account (Tso)
+
+-traitlog.php
+   .login si compte existant(Tso)
+   .inscription si contraire (Tso)
+
+-fonction.php
+   .ajouter_membre(Tso)
+
+-accueil.php
+   .
