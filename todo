@@ -23,4 +23,14 @@
    .ajouter_membre(Tso)
 
 -accueil.php
-   .
+   .liste objet (Tso)
+   .filtrer par categorie (Tso)
+   
+-deconnexion.php(Tso)
+   .redirection login(Tso)
+   .destructions sessions(Tso)
+
+-bootsrap
+ .accueil.php(Tso)
+ .index.php(Tso)
+ .creer.php(Tso)
