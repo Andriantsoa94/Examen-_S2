@@ -92,3 +92,30 @@ CREATE TABLE IF NOT EXISTS emprunt (
                                                                              (9, 2, '2025-06-20', '2025-06-25'),
                                                                              (25, 1, '2025-06-15', '2025-06-22');
 
+CREATE OR REPLACE VIEW vue_objets_emprunts AS
+SELECT 
+    o.id_objet,
+    o.nom_objet,
+    o.id_categorie,
+    c.nom_categorie,
+    o.id_membre as proprietaire_id,
+    proprietaire.nom as proprietaire_nom,
+    e.id_emprunt,
+    e.id_membre as emprunteur_id,
+    emprunteur.nom as emprunteur_nom,
+    e.date_emprunt,
+    e.date_retour,
+    CASE 
+        WHEN e.date_retour IS NULL AND e.id_emprunt IS NOT NULL THEN 'Emprunte'
+        ELSE 'Disponible'
+    END as statut_emprunt,
+    CASE 
+        WHEN e.date_retour IS NULL AND e.id_emprunt IS NOT NULL 
+        THEN DATE_ADD(e.date_emprunt, INTERVAL 7 DAY)
+        ELSE NULL
+    END as date_retour_prevue
+FROM objet o
+LEFT JOIN categorie_objet c ON o.id_categorie = c.id_categorie
+LEFT JOIN membre proprietaire ON o.id_membre = proprietaire.id_membre
+LEFT JOIN emprunt e ON o.id_objet = e.id_objet AND e.date_retour IS NULL
+LEFT JOIN membre emprunteur ON e.id_membre = emprunteur.id_membre;

@@ -1,6 +1,5 @@
 <?php
 include "../include/fonction.php";
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -8,48 +7,50 @@ include "../include/fonction.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-    <title>Document</title>
+    <title>Register</title>
 </head>
-<body class="register-page">
-
-
-<div class="ins">
-    <form action="insert.php" method="post">
-        <h1>Creer un compte</h1>
-
-        <label for="mail">Mail</label>
-        <input type="email" name="mail" require>
-
-        <label for="nom">Name</label>
-        <input type="text" name="nom" require>
-
-        <label for="ville">Ville</label>
-        <input type="text" name="ville" require>
-
-        <label for="sexe">Sexe</label>
-        <select name="sexe" require>
-            <option value="Homme">Homme</option>
-            <option value="Femme">Femme</option>
-        </select>
-
-        <label for="pass">Password</label>
-        <input type="password" name="pass" require>
-
-        <label for="dtn">Date de naissance</label>
-        <input type="date" name="dtn" require>
-
-        <div class="btn">
-            <button type="submit">Register</button>
-            <a href="index.php" class="button-link">I have an account</a>
-        </div>
-
-        <?php if (isset($_GET['error'])) { ?>
-            <p>ERROR</p>
-        <?php } ?>
-    </form>
+<body class="bg-light">
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="card shadow p-4" style="max-width: 450px; width: 100%;">
+        <form action="insert.php" method="post">
+            <h3 class="mb-4 text-center">Create an Account</h3>
+            <div class="mb-3">
+                <label for="mail" class="form-label">Mail</label>
+                <input type="email" name="mail" class="form-control" id="mail" required>
+            </div>
+            <div class="mb-3">
+                <label for="nom" class="form-label">Name</label>
+                <input type="text" name="nom" class="form-control" id="nom" required>
+            </div>
+            <div class="mb-3">
+                <label for="ville" class="form-label">Ville</label>
+                <input type="text" name="ville" class="form-control" id="ville" required>
+            </div>
+            <div class="mb-3">
+                <label for="sexe" class="form-label">Sexe</label>
+                <select name="sexe" class="form-select" id="sexe" required>
+                    <option value="Homme">Homme</option>
+                    <option value="Femme">Femme</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="pass" class="form-label">Password</label>
+                <input type="password" name="pass" class="form-control" id="pass" required>
+            </div>
+            <div class="mb-3">
+                <label for="dtn" class="form-label">Date de naissance</label>
+                <input type="date" name="dtn" class="form-control" id="dtn" required>
+            </div>
+            <?php if (isset($_GET['error'])) { ?>
+                <div class="alert alert-danger py-2">ERROR</div>
+            <?php } ?>
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+            <p class="mt-3 text-center">
+                <a href="index.php">I have an account</a>
+            </p>
+        </form>
+    </div>
 </div>
-
-<link rel="stylesheet" href="../assets/css/style.css">
+<script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
